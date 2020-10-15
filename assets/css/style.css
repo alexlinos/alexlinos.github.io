@@ -1708,5 +1708,91 @@ a {
 
 .overflow-hidden {
   overflow: hidden; }
+  
+ .page-loader {
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            background: #fff;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            height: 100vh;
+            left: 0;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            perspective: 1000px;
+            position: fixed;
+            opacity: 0;
+            -webkit-transition: all 700ms cubic-bezier(.25, .46, .45, .94);
+            transition: all 700ms cubic-bezier(.25, .46, .45, .94);
+            top: 0;
+            width: 100vw;
+            z-index: 1000;
+            visibility: hidden;
+        }
+
+        .page-loading .page-loader {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .page-loader__icon-container {
+            position: relative;
+        }
+
+        .page-loader__icon {
+            height: 80px;
+            width: 80px;
+            z-index: 1;
+        }
+
+        .page-loader__icon .top,
+        .page-loader__icon .top-reversed {
+            animation: loader-dash 2s infinite cubic-bezier(.77,0,.18,1);
+            stroke-dasharray: 218;
+            stroke-dashoffset: 218;
+        }
+
+        .page-loader__icon--top {
+            left: 0;
+            position: absolute;
+            top: 0;
+            transform: rotateY(180deg);
+        }
+
+        .page-loader__icon .top-reversed {
+            animation: loader-dash-reverse 2s infinite cubic-bezier(.77,0,.18,1);
+        }
+
+        @keyframes loader-dash-reverse {
+            0% {
+                stroke-dashoffset: 218;
+            }
+
+            50% {
+                stroke-dashoffset: 0;
+            }
+
+            51% {
+                stroke-dashoffset: 218;
+            }
+        }
+
+        @keyframes loader-dash {
+            0%,
+            50% {
+                stroke-dashoffset: 218;
+            }
+
+            51% {
+                stroke-dashoffset: 0;
+            }
+
+            100% {
+                stroke-dashoffset: 218;
+            }
+		}
 
 /*# sourceMappingURL=style.css.map */
