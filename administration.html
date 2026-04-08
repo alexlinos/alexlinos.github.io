@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit-no">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 		<title>North Haven Police Department &mdash; 8 Linsley St. North Haven CT</title>
 		<meta name="description" content="We strive to deliver professional police services while creating community partnerships through mutual respect, trust and collaboration.">
@@ -19,6 +19,13 @@
 
     <link rel="stylesheet" href="assets/css/helpers.css">
     <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+      #google_translate_element { display: inline-block; vertical-align: middle; }
+      #google_translate_element select { padding: 2px 4px; font-size: 12px; border: 1px solid #ccc; border-radius: 3px; background: #fff; }
+      .goog-te-banner-frame, .goog-te-gadget-icon { display: none !important; }
+      .goog-te-gadget-simple { background: transparent !important; border: none !important; }
+      body { top: 0 !important; }
+    </style>
 	</head>
 	<body data-spy="scroll" data-target="#pb-navbar" data-offset="200">
 <script src="https://website-widgets.pages.dev/dist/sienna.min.js" defer></script>
@@ -44,33 +51,34 @@
 			
     </div>
 			</li>
-			<li class="nav-item"><a class="nav-link" href="documents2.html">Forms and Documents</a></li>
-			<li class="nav-item"><a class="nav-link" href="https://www.buycrash.com/">Buy Accident Report</a></li>
+			<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Records</a>
+			<div class="dropdown-menu">
+			<a class="dropdown-item" href="documents2.html">Forms and Documents</a>
+			<a class="dropdown-item" href="arrest.html">Arrest Log</a>
+			<a class="dropdown-item" href="infoserv.html">Information Services (Fees &amp; Contact)</a>
+			<a class="dropdown-item" href="https://www.buycrash.com/" target="_blank" rel="noopener">Buy Accident Report <i class="fa fa-external-link"></i></a>
+			</div>
+			</li>
+			<li class="nav-item"><a class="nav-link" href="community.html">Community Resources</a></li>
 			<li class="nav-item"><a class="nav-link" href="index.html#section-contact">Contact</a></li>
-            <li class="nav-item"><a class="nav-link" href="index.html#section-why-us">Berniere Memorial Police Building</a></li>
+			<li class="nav-item"><a class="nav-link" href="index.html#section-why-us">Our Building</a></li>
 			<li class="nav-item"><a class="nav-link" href="index.html#section-about">About</a></li>
+			<li class="nav-item d-flex align-items-center ml-2"><div id="google_translate_element"></div></li>
           </ul>
         </div>
       </div>
     </nav>
     <!-- END nav -->
 
-    <!-- HERO -->
-    <section class="pb_cover_v1 text-left cover-bg-black cover-bg-opacity-4" style="background-image: url(assets/images/DCC-NHPD-4465_v2-web.jpg)" alt="Image of the new police department building as the background"id="section-home">
+    <section class="pb_cover_compact text-center cover-bg-black cover-bg-opacity-4" style="background-image: url(assets/images/DCC-NHPD-4465_v2-web.jpg)">
       <div class="container">
-        <div class="row align-items-center justify-content-end">
-          <div class="col-md-6  order-md-1">
-
-            <h2 class="heading mb-3">North Haven Police Department</h2>
-            <div class="sub-heading"><p class="mb-5">We strive to deliver professional and progressive police services while strengthening community partnerships through mutual respect, trust and collaboration</p>
-            <p><a href="index.html#section-contact" role="button" class="btn smoothscroll pb_outline-light btn-xl pb_font-13 p-4 rounded-0 pb_letter-spacing-2">CONTACT US</a></p>
-            </div>
-            
-          </div>  
+        <div class="row align-items-center justify-content-center">
+          <div class="col-md-8">
+            <h2 class="heading">Administration</h2>
+          </div>
         </div>
       </div>
     </section>
-    <!-- /HERO -->
 
 <!-- ADMINISTRATION SECTION -->
 <div id="formsdown" class="container">
@@ -178,8 +186,20 @@ Chief Stavrides has an undergraduate degree in Criminal Justice from Northeaster
 <!-- /ADMINISTRATION SECTION -->
 
     <footer class="pb_footer bg-light" role="contentinfo">
-      <div class="container text-center">
-        <p class="mb-0">© Town of North Haven</p>
+      <div class="container">
+        <div class="row text-center">
+          <div class="col">
+            <ul class="list-inline">
+              <li class="list-inline-item"><a href="https://www.facebook.com/northhavenpd" class="p-2"><i class="fa fa-facebook"></i></a></li>
+              <li class="list-inline-item"><a href="https://twitter.com/NorthHavenPD" class="p-2"><i class="fa fa-twitter"></i></a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col text-center">
+            <p class="pb_font-14"><a href="https://www.northhaven-ct.gov/" target="_blank" rel="noopener">Town of North Haven</a> | &nbsp; &copy; 2026 North Haven Police Department. All Rights Reserved. | &nbsp; <a href="https://www.town.north-haven.ct.us/community/accessibility_statement.php">Accessibility Statement</a></p>
+          </div>
+        </div>
       </div>
     </footer>
 
@@ -201,10 +221,15 @@ Chief Stavrides has an undergraduate degree in Criminal Justice from Northeaster
     <script src="assets/js/bootstrap.min.js"></script>
     <script src="assets/js/slick.min.js"></script>
 
-    <script src="assets/js/jquery.waypoints.min.js"></script>
     <script src="assets/js/jquery.easing.1.3.js"></script>
 
     <script src="assets/js/main.js"></script>
+    <script>
+      function googleTranslateElementInit() {
+        new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+      }
+    </script>
+    <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 	</body>
 </html>

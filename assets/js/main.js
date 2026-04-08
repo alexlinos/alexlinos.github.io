@@ -57,13 +57,13 @@ $(document).ready(function($) {
 		$('.single-item').slick({
 			slidesToShow: 1,
 		  slidesToScroll: 1,
-		  dots: true,
+		  dots: false,
 		  infinite: true,
 		  autoplay: false,
 	  	autoplaySpeed: 2000,
 	  	nextArrow: '<span class="next"><i class="ion-ios-arrow-right"></i></span>',
 	  	prevArrow: '<span class="prev"><i class="ion-ios-arrow-left"></i></span>',
-	  	arrows: true,
+	  	arrows: false,
 	  	draggable: false,
 	  	adaptiveHeight: true
 		});
