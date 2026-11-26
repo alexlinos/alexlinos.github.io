@@ -4,169 +4,960 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Alex Linos</title>
-  <meta name="description" content="Practical cybersecurity, local and cloud AI, open-source tools, and the hardware that runs them, built for real-world budgets.">
+  <meta name="description" content="Practical cybersecurity, local &amp; cloud AI, open-source tools, and the hardware that runs them, built for real-world budgets.">
   <style>
     :root {
-      --bg: #fbfaf7;
-      --surface: #ffffff;
-      --text: #16181d;
-      --muted: #5b6070;
-      --line: #e4e2dc;
-      --accent: #b45309;
-      --accent-ink: #ffffff;
-      --mono: ui-monospace, "SF Mono", "Cascadia Code", Consolas, monospace;
-      --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      color-scheme: light dark;
+      --bg: #f6f5f0;
+      --surface: #eae7de;
+      --ink: #111318;
+      --ink-2: #353a46;
+      --rule: #111318;
+      --rule-soft: #cac5b8;
+      --accent: #1338be;
+      --accent-band: #1338be;
+      --accent-band-ink: #ffffff;
+      --display: "DIN Alternate", "Bahnschrift", "DIN Condensed", "Avenir Next Condensed", "Franklin Gothic Medium", "Helvetica Neue", Arial, sans-serif;
+      --sans: "Helvetica Neue", "Segoe UI Variable Text", "Segoe UI", -apple-system, BlinkMacSystemFont, Arial, sans-serif;
     }
     @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #0f1115;
-        --surface: #161920;
-        --text: #e8e9ec;
-        --muted: #9aa0ad;
-        --line: #262a33;
-        --accent: #f59e0b;
-        --accent-ink: #16181d;
+      :root:not([data-theme="light"]) {
+        --bg: #0c0e13;
+        --surface: #151923;
+        --ink: #f3f1eb;
+        --ink-2: #c2c8d6;
+        --rule: #e6e3da;
+        --rule-soft: #2b3242;
+        --accent: #4c7dff;
+        --accent-band: #1842d8;
+        --accent-band-ink: #ffffff;
       }
     }
-    * { box-sizing: border-box; }
-    html { -webkit-text-size-adjust: 100%; }
+    :root[data-theme="dark"] {
+      --bg: #0c0e13;
+      --surface: #151923;
+      --ink: #f3f1eb;
+      --ink-2: #c2c8d6;
+      --rule: #e6e3da;
+      --rule-soft: #2b3242;
+      --accent: #4c7dff;
+      --accent-band: #1842d8;
+      --accent-band-ink: #ffffff;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
     body {
       margin: 0;
       background: var(--bg);
-      color: var(--text);
-      font: 17px/1.6 var(--sans);
+      color: var(--ink);
+      font: 400 17px/1.6 var(--sans);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
     a { color: inherit; }
-    .wrap { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+    :focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 3px;
+    }
+    ::selection { background: var(--accent-band); color: var(--accent-band-ink); }
 
-    header .wrap {
-      display: flex; align-items: center; justify-content: space-between;
-      height: 72px;
+    .skip {
+      position: absolute;
+      left: -9999px;
+      top: 0;
+      background: var(--accent-band);
+      color: var(--accent-band-ink);
+      padding: 12px 18px;
+      font: 700 14px/1 var(--display);
+      text-decoration: none;
+      z-index: 100;
     }
-    .mark { font-family: var(--mono); font-weight: 700; text-decoration: none; letter-spacing: .02em; }
-    .mark span { color: var(--accent); }
-    nav { display: flex; gap: 20px; font-size: 15px; }
-    nav a { color: var(--muted); text-decoration: none; }
-    nav a:hover { color: var(--text); }
+    .skip:focus { left: 16px; top: 16px; }
 
-    .hero { padding: 88px 0 72px; }
-    .eyebrow {
-      font-family: var(--mono); font-size: 13px; color: var(--accent);
-      text-transform: uppercase; letter-spacing: .08em; margin: 0 0 18px;
-    }
-    h1 { font-size: clamp(36px, 7vw, 56px); line-height: 1.08; margin: 0 0 20px; letter-spacing: -.02em; }
-    .lede { font-size: 19px; color: var(--muted); max-width: 40em; margin: 0 0 32px; }
-    .cta { display: flex; flex-wrap: wrap; gap: 12px; }
-    .btn {
-      display: inline-block; padding: 12px 20px; border-radius: 8px;
-      text-decoration: none; font-weight: 600; font-size: 15px;
-      border: 1px solid var(--line);
-    }
-    .btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
-    .btn:hover { filter: brightness(1.08); }
-
-    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; padding-bottom: 40px; }
-    .card { display: flex; flex-direction: column; }
-    .links { list-style: none; margin: auto 0 0; padding: 0; display: grid; gap: 10px; }
-    .links a { font-size: 14px; line-height: 1.4; display: block; }
-    .links a::after { content: " →"; }
-    .soon { color: var(--muted); font-size: 15px; padding-bottom: 88px; margin: 0; }
-    .soon .tag { margin: 0 8px 0 0; }
-    .soon a { color: var(--accent); font-weight: 600; text-decoration: none; }
-    @media (max-width: 860px) { .cards { grid-template-columns: 1fr; } }
-    .card {
-      background: var(--surface); border: 1px solid var(--line); border-radius: 12px;
-      padding: 24px;
-    }
-    .card h2 { font-size: 18px; margin: 0 0 8px; }
-    .card p { color: var(--muted); margin: 0 0 16px; font-size: 15px; }
-    .card a { font-size: 15px; font-weight: 600; color: var(--accent); text-decoration: none; }
-    .tag {
-      display: inline-block; font-family: var(--mono); font-size: 12px;
-      color: var(--muted); border: 1px solid var(--line); border-radius: 999px;
-      padding: 2px 10px; margin-bottom: 12px; align-self: flex-start;
+    .frame {
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 0 32px;
     }
 
-    footer { border-top: 1px solid var(--line); }
-    footer .wrap {
-      display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between;
-      padding-top: 24px; padding-bottom: 32px; font-size: 14px; color: var(--muted);
+    /* Header */
+    .topbar {
+      border-bottom: 2px solid var(--rule);
     }
-    footer nav { gap: 16px; font-size: 14px; }
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      min-height: 68px;
+      padding: 12px 0;
+    }
+    .brand-mark {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+    }
+    .al-tile {
+      display: inline-grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      background: var(--accent-band);
+      color: var(--accent-band-ink);
+      font: 700 17px/1 var(--display);
+      letter-spacing: 0.04em;
+      flex: none;
+    }
+    .brand-tlp {
+      font: 700 13px/1 var(--display);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+    .nav-cluster {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      font: 700 13px/1 var(--display);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .nav-links a {
+      text-decoration: none;
+      padding: 6px 0;
+      border-bottom: 2px solid transparent;
+    }
+    .nav-links a:hover { border-bottom-color: var(--accent); color: var(--accent); }
+
+    .theme-btn {
+      appearance: none;
+      background: transparent;
+      color: var(--ink);
+      border: 1.5px solid var(--rule);
+      padding: 8px 13px;
+      font: 700 12px/1 var(--display);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+    .theme-btn:hover { background: var(--ink); color: var(--bg); }
+
+    /* Hero */
+    .hero {
+      padding: 46px 0 48px;
+      border-bottom: 2px solid var(--rule);
+    }
+    h1 {
+      margin: 0 0 26px;
+      font: 700 clamp(64px, 11.8vw, 152px)/0.88 var(--display);
+      letter-spacing: -0.025em;
+      text-transform: uppercase;
+    }
+    h1 .surname {
+      color: var(--accent);
+      margin-left: 0.14em;
+    }
+    .hero-body {
+      padding-top: 28px;
+      border-top: 1.5px solid var(--rule-soft);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 48px;
+      align-items: start;
+    }
+    .hero-photo {
+      position: relative;
+      margin: 4px 12px 12px 0;
+      width: clamp(180px, 18vw, 232px);
+    }
+    .hero-photo::before {
+      content: "";
+      position: absolute;
+      inset: 12px -12px -12px 12px;
+      background: var(--accent);
+    }
+    .hero-photo img {
+      position: relative;
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1;
+      object-fit: cover;
+      border: 2px solid var(--ink);
+    }
+    @media (max-width: 720px) {
+      .hero-body { grid-template-columns: 1fr; gap: 28px; }
+      .hero-photo { order: -1; width: 128px; margin: 0 10px 6px 0; }
+      .hero-photo::before { inset: 8px -8px -8px 8px; }
+    }
+    .manifesto {
+      margin: 0 0 22px;
+      font: 500 clamp(21px, 2.2vw, 27px)/1.42 var(--sans);
+      letter-spacing: -0.01em;
+      max-width: 56ch;
+      padding-left: 20px;
+      border-left: 4px solid var(--accent);
+    }
+    .cred-line {
+      margin: 0 0 24px;
+      font: 700 13px/1.5 var(--display);
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--ink-2);
+    }
+    .hero-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 26px;
+      font: 700 14px/1 var(--display);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .hero-links a {
+      text-decoration: none;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+    }
+    .hero-links a:hover { color: var(--accent); }
+
+    /* Section Grid (no section numbers) */
+    .band {
+      padding: 58px 0;
+      border-bottom: 2px solid var(--rule);
+    }
+    .band-grid {
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+      gap: 40px;
+      align-items: start;
+    }
+    .band-head {
+      position: sticky;
+      top: 24px;
+    }
+    .band-head h2 {
+      margin: 0 0 12px;
+      font: 700 32px/1.05 var(--display);
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+    }
+    .band-head p {
+      margin: 0 0 20px;
+      font: 400 17px/1.55 var(--sans);
+      color: var(--ink-2);
+      max-width: 26ch;
+    }
+    .band-head p:last-child { margin-bottom: 0; }
+    .book-cta {
+      display: inline-block;
+      margin-top: 4px;
+      padding: 11px 16px;
+      background: var(--accent-band);
+      color: var(--accent-band-ink);
+      font: 700 13px/1 var(--display);
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+    .book-cta:hover { opacity: 0.88; }
+    .band-head p.soft-contact {
+      margin: 16px 0 0;
+      font: 400 14px/1.5 var(--sans);
+      color: var(--ink-2);
+      max-width: 30ch;
+    }
+    .band-head p.soft-contact a {
+      color: var(--accent);
+      font-weight: 600;
+      text-underline-offset: 3px;
+    }
+
+    /* Speaking Section */
+    .quote-block {
+      margin: 0 0 32px;
+      padding: 22px 26px;
+      background: var(--surface);
+      border-left: 4px solid var(--accent);
+    }
+    .quote-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 8px 18px;
+      margin-bottom: 10px;
+    }
+    .rating-pill {
+      font: 700 13px/1 var(--display);
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .quote-meta {
+      font: 600 13px/1.3 var(--sans);
+      color: var(--ink-2);
+    }
+    .quote-block blockquote {
+      margin: 0 0 10px;
+      font: 500 19px/1.48 var(--sans);
+      color: var(--ink);
+    }
+    .quote-block figcaption {
+      font: 700 12px/1.3 var(--display);
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--ink-2);
+    }
+
+    .talks-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      border-top: 2px solid var(--rule);
+    }
+    .talk-item {
+      display: grid;
+      grid-template-columns: 150px minmax(0, 1fr);
+      gap: 10px 24px;
+      padding: 20px 8px;
+      border-bottom: 1.5px solid var(--rule-soft);
+      align-items: baseline;
+    }
+    .talk-when {
+      font: 700 13px/1.4 var(--display);
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .talk-event {
+      display: block;
+      font: 600 13px/1.4 var(--sans);
+      color: var(--ink-2);
+      margin-top: 2px;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+    .talk-title {
+      margin: 0 0 6px;
+      font: 700 clamp(20px, 2vw, 24px)/1.22 var(--display);
+      color: var(--ink);
+    }
+    .talk-note {
+      margin: 0;
+      font: 400 16px/1.5 var(--sans);
+      color: var(--ink-2);
+    }
+
+    /* Unified List Rows: 5-Min Wins AND Videos */
+    .media-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      border-top: 2px solid var(--rule);
+    }
+    .media-list li {
+      border-bottom: 1.5px solid var(--rule-soft);
+    }
+    .media-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 20px;
+      align-items: baseline;
+      padding: 24px 12px;
+      text-decoration: none;
+      transition: background 0.16s ease, transform 0.16s ease;
+    }
+    .media-row.has-num {
+      grid-template-columns: 64px minmax(0, 1fr) auto;
+    }
+    .media-row:hover, .media-row:focus-visible {
+      background: var(--surface);
+      transform: translateX(6px);
+    }
+    .ep-num {
+      font: 700 clamp(21px, 2.2vw, 27px)/1.2 var(--display);
+      color: var(--accent);
+      font-variant-numeric: tabular-nums;
+    }
+    .media-title {
+      font: 700 clamp(21px, 2.2vw, 27px)/1.22 var(--display);
+      letter-spacing: -0.005em;
+    }
+    .media-meta {
+      font: 700 13px/1 var(--display);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+
+    /* Saturated Cobalt Band: Threat Feed Me */
+    .tfm-band {
+      background: var(--accent-band);
+      color: var(--accent-band-ink);
+      border-bottom: 2px solid var(--rule);
+      padding: 68px 0;
+    }
+    .tfm-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      gap: 40px 48px;
+      align-items: center;
+    }
+    .tfm-kicker {
+      font: 700 13px/1 var(--display);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.88;
+      margin-bottom: 10px;
+    }
+    .tfm-band h2 {
+      margin: 0 0 10px;
+      font: 700 clamp(40px, 6vw, 70px)/0.94 var(--display);
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+    }
+    .tfm-sub {
+      margin: 0 0 18px;
+      font: 700 19px/1.35 var(--sans);
+      opacity: 0.96;
+    }
+    .tfm-band p.tfm-copy {
+      margin: 0 0 22px;
+      font: 400 17px/1.58 var(--sans);
+      max-width: 48ch;
+      opacity: 0.94;
+    }
+    .tfm-specs {
+      margin: 0 0 28px;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 20px;
+      font: 700 13px/1.4 var(--display);
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      opacity: 0.92;
+    }
+    .tfm-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px 26px;
+      font: 700 14px/1 var(--display);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .tfm-actions a {
+      text-decoration: none;
+      padding-bottom: 6px;
+      border-bottom: 2px solid currentColor;
+    }
+    .tfm-actions a:hover { opacity: 0.8; }
+    .tfm-actions a:focus-visible { outline-color: var(--accent-band-ink); }
+
+    /* Responsive Flow Diagram (readable on desktop AND 375px mobile) */
+    .flow-frame {
+      border: 1.5px solid rgba(255, 255, 255, 0.72);
+      padding: 22px 24px;
+    }
+    .flow-title {
+      font: 700 12px/1 var(--display);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.85;
+      margin-bottom: 16px;
+    }
+    .flow-steps {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 0;
+    }
+    .flow-node {
+      border: 1.5px solid rgba(255, 255, 255, 0.85);
+      padding: 13px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 4px 16px;
+    }
+    .flow-node.highlight {
+      border-width: 2.5px;
+      background: rgba(255, 255, 255, 0.1);
+    }
+    .flow-step-v {
+      font: 700 17px/1.2 var(--display);
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+    .flow-step-d {
+      font: 400 14px/1.35 var(--sans);
+      opacity: 0.92;
+    }
+    .flow-arrow {
+      display: flex;
+      justify-content: center;
+      padding: 4px 0;
+      opacity: 0.9;
+    }
+    .flow-arrow svg {
+      display: block;
+      width: 18px;
+      height: 18px;
+    }
+
+    /* More Open Source Block */
+    .oss-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      border-top: 2px solid var(--rule);
+    }
+    .oss-item {
+      display: grid;
+      grid-template-columns: 180px minmax(0, 1fr) auto;
+      gap: 10px 24px;
+      align-items: baseline;
+      padding: 22px 10px;
+      border-bottom: 1.5px solid var(--rule-soft);
+    }
+    .oss-name {
+      font: 700 22px/1.2 var(--display);
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+    }
+    .oss-desc {
+      margin: 0;
+      font: 400 17px/1.55 var(--sans);
+      color: var(--ink-2);
+    }
+    .oss-link {
+      font: 700 13px/1 var(--display);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 4px;
+      white-space: nowrap;
+    }
+    .oss-tag {
+      font: 700 13px/1 var(--display);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-2);
+      white-space: nowrap;
+    }
+
+    /* IR Field Kit: Plain Editorial Row (no grey disabled box) */
+    .kit-row {
+      border-top: 2px solid var(--rule);
+      border-bottom: 1.5px solid var(--rule-soft);
+      padding: 24px 10px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 16px 28px;
+      align-items: baseline;
+    }
+    .kit-row h3 {
+      margin: 0 0 8px;
+      font: 700 clamp(21px, 2.2vw, 27px)/1.2 var(--display);
+    }
+    .kit-row p {
+      margin: 0;
+      font: 400 17px/1.55 var(--sans);
+      color: var(--ink-2);
+      max-width: 52ch;
+    }
+    .kit-status {
+      font: 700 13px/1.4 var(--display);
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 4px;
+      white-space: nowrap;
+    }
+
+    /* Footer */
+    .colophon {
+      padding: 48px 0 64px;
+    }
+    .colophon-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      border-top: 2px solid var(--rule);
+      border-bottom: 2px solid var(--rule);
+    }
+    .colophon-link {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 28px 20px;
+      text-decoration: none;
+      border-right: 1.5px solid var(--rule-soft);
+      transition: background 0.15s ease;
+    }
+    .colophon-link:last-child { border-right: 0; }
+    .colophon-link:hover, .colophon-link:focus-visible { background: var(--surface); }
+    .colophon-link .k {
+      font: 700 12px/1 var(--sans);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-2);
+    }
+    .colophon-link .v {
+      font: 700 26px/1.1 var(--display);
+    }
+    .colophon-link .h {
+      font: 600 14px/1.2 var(--sans);
+      color: var(--accent);
+    }
+    .foot-meta {
+      margin-top: 26px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      font: 600 12px/1.5 var(--sans);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-2);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .media-row, .colophon-link { transition: none; }
+      .media-row:hover { transform: none; }
+    }
+
+    @media (max-width: 960px) {
+      .band-grid { grid-template-columns: 1fr; gap: 24px; }
+      .band-head { position: static; }
+      .tfm-grid { grid-template-columns: 1fr; gap: 32px; }
+      .oss-item { grid-template-columns: 1fr; gap: 8px; }
+      .kit-row { grid-template-columns: 1fr; }
+    }
 
     @media (max-width: 640px) {
-      .hero { padding: 48px 0 48px; }
-      .soon { padding-bottom: 56px; }
-      header nav { display: none; }
+      .frame { padding: 0 18px; }
+      .nav-links { display: none; }
+      .hero { padding: 34px 0 38px; }
+      h1 .surname { display: block; margin-left: 0; }
+      .band { padding: 44px 0; }
+      .tfm-band { padding: 50px 0; }
+      .talk-item { grid-template-columns: 1fr; gap: 6px; padding: 18px 4px; }
+      .media-row, .media-row.has-num { grid-template-columns: 1fr; gap: 6px; padding: 20px 6px; }
+      .flow-frame { padding: 16px; }
+      .flow-node { flex-direction: column; gap: 3px; }
+      .colophon-grid { grid-template-columns: 1fr; }
+      .colophon-link { border-right: 0; border-bottom: 1.5px solid var(--rule-soft); padding: 22px 6px; }
+      .colophon-link:last-child { border-bottom: 0; }
     }
   </style>
 </head>
 <body>
-  <header>
-    <div class="wrap">
-      <a class="mark" href="/">alex<span>.</span>linos</a>
-      <nav aria-label="Profiles">
-        <a href="https://www.youtube.com/@alex-linos">YouTube</a>
-        <a href="https://www.linkedin.com/in/alexlinos">LinkedIn</a>
-        <a href="https://github.com/alexlinos">GitHub</a>
-      </nav>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="topbar">
+    <div class="frame topbar-inner">
+      <a class="brand-mark" href="#top" aria-label="Alex Linos home">
+        <span class="al-tile" aria-hidden="true">AL</span>
+        <span class="brand-tlp">TLP:CLEAR</span>
+      </a>
+      <div class="nav-cluster">
+        <nav class="nav-links" aria-label="Primary">
+          <a href="#speaking">Speaking</a>
+          <a href="#wins">5-Min Wins</a>
+          <a href="#threat-feed-me">Threat Feed Me</a>
+          <a href="#open-source">Open Source</a>
+          <a href="#videos">Videos</a>
+        </nav>
+        <button class="theme-btn" id="themeToggle" type="button" aria-label="Toggle color theme">Theme</button>
+      </div>
     </div>
   </header>
 
-  <main class="wrap">
-    <section class="hero">
-      <p class="eyebrow">Cybersecurity · AI · Open source</p>
-      <h1>Alex Linos</h1>
-      <p class="lede">Practical cybersecurity, local &amp; cloud AI, open-source tools, and the hardware that runs them, built for real-world budgets.</p>
-      <div class="cta">
-        <a class="btn primary" href="https://www.youtube.com/@alex-linos">Watch on YouTube</a>
-        <a class="btn" href="https://www.linkedin.com/in/alexlinos">Connect on LinkedIn</a>
+  <main id="main">
+    <div class="frame">
+      <section class="hero" id="top" aria-label="Introduction">
+        <h1>Alex<span class="surname">Linos</span></h1>
+        <div class="hero-body">
+          <div class="hero-text">
+            <p class="manifesto">I run IT and cybersecurity for a Connecticut town: police, fire, dispatch, water and town hall, on a town budget. When I can't afford a tool, I wire together free ones or build my own, then show other towns how.</p>
+            <p class="cred-line">CISSP &nbsp;·&nbsp; Co-Chair, ESF-17 (Cybersecurity), DEMHS Region 2 &nbsp;·&nbsp; GMIS-CT</p>
+            <div class="hero-links" aria-label="Profiles">
+              <a href="https://www.youtube.com/@alex-linos">YouTube ↗</a>
+              <a href="https://www.linkedin.com/in/alexlinos">LinkedIn ↗</a>
+              <a href="https://github.com/alexlinos">GitHub ↗</a>
+            </div>
+          </div>
+          <figure class="hero-photo">
+            <img src="alex-linos-headshot.webp" width="400" height="400" alt="Alex Linos" decoding="async">
+          </figure>
+        </div>
+      </section>
+
+      <section class="band" id="speaking" aria-labelledby="speaking-heading">
+        <div class="band-grid">
+          <div class="band-head">
+            <h2 id="speaking-heading">Speaking</h2>
+            <p>Practical AI and cybersecurity talks for public-sector and practitioner audiences.</p>
+            <a class="book-cta" href="https://www.linkedin.com/in/alexlinos">Book me to speak ↗</a>
+            <p class="soft-contact">Speaking, workshops, or collaborating on open-source tools? <a href="https://www.linkedin.com/in/alexlinos">Reach out on LinkedIn</a>.</p>
+          </div>
+          <div>
+            <figure class="quote-block">
+              <div class="quote-top">
+                <span class="rating-pill">5 / 5 Attendee Rating</span>
+                <span class="quote-meta">Cyber Nutmeg 2026 · "The $0 SOC"</span>
+              </div>
+              <blockquote>"Alex was amazing. Really providing the confidence to dig into some of these free tools and combining them together with most orgs paid subscriptions."</blockquote>
+              <figcaption>Attendee, Cyber Nutmeg 2026</figcaption>
+            </figure>
+
+            <ol class="talks-list">
+              <li class="talk-item">
+                <div class="talk-when">Oct 20, 2026<span class="talk-event">Cyber Nutmeg 2026</span></div>
+                <div>
+                  <h3 class="talk-title">The $0 SOC: AI-Assisted Threat Detection on Open Source</h3>
+                  <p class="talk-note">Solo talk on pairing free open-source tooling with AI-assisted investigation.</p>
+                </div>
+              </li>
+              <li class="talk-item">
+                <div class="talk-when">Oct 20, 2026<span class="talk-event">Cyber Nutmeg 2026</span></div>
+                <div>
+                  <h3 class="talk-title">GMIS-CT panel: AI threats for towns, game-show format</h3>
+                  <p class="talk-note">Panel discussion on practical AI risks for municipalities.</p>
+                </div>
+              </li>
+              <li class="talk-item">
+                <div class="talk-when">May 2026<span class="talk-event">CEN Connect 2026</span></div>
+                <div>
+                  <h3 class="talk-title">AI in the Municipality: Implementation, Use, and Cautions</h3>
+                  <p class="talk-note">GMIS-CT panel in Hartford covering AI landscape, cybersecurity, policy and governance.</p>
+                </div>
+              </li>
+              <li class="talk-item">
+                <div class="talk-when">Fall 2025<span class="talk-event">Cyber Nutmeg 2025</span></div>
+                <div>
+                  <h3 class="talk-title">Using Prompts to Turn Any AI Model Into a Cybersecurity Assistant</h3>
+                  <p class="talk-note">Solo talk on policy drafting, alert review and running private local models in LM Studio.</p>
+                </div>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <section class="band" id="wins" aria-labelledby="wins-heading">
+        <div class="band-grid">
+          <div class="band-head">
+            <h2 id="wins-heading">5-Min Wins</h2>
+            <p>Quick hardening fixes for Microsoft 365 and Entra. Short enough to run before your next meeting.</p>
+          </div>
+          <ol class="media-list">
+            <li>
+              <a class="media-row has-num" href="https://www.youtube.com/shorts/4a4WQ7kjAkM">
+                <span class="ep-num">#01</span>
+                <span class="media-title">Kill User Consent Phishing in Entra</span>
+                <span class="media-meta">Entra · no new spend ↗</span>
+              </a>
+            </li>
+            <li>
+              <a class="media-row has-num" href="https://www.youtube.com/shorts/wv__Il7iQJ4">
+                <span class="ep-num">#02</span>
+                <span class="media-title">Kill M365 Direct Send</span>
+                <span class="media-meta">M365 · no new spend ↗</span>
+              </a>
+            </li>
+          </ol>
+        </div>
+      </section>
+    </div>
+
+    <section class="tfm-band" id="threat-feed-me" aria-labelledby="tfm-heading">
+      <div class="frame tfm-grid">
+        <div>
+          <div class="tfm-kicker">Open-Source MineMeld Replacement</div>
+          <h2 id="tfm-heading">Threat Feed Me</h2>
+          <p class="tfm-sub">Feed it threats. It's always hungry.</p>
+          <p class="tfm-copy">Pulls 22 free, keyless threat feeds, dedupes them so feeds that copy each other count once, and scores indicators into High, Medium and Everything tiers. Serves block-list URLs to FortiGate, Palo Alto, pfSense, OPNsense and more, plus TAXII 2.1.</p>
+          <ul class="tfm-specs" aria-label="Technical highlights">
+            <li>One container</li>
+            <li>No API keys</li>
+            <li>TAXII 2.1</li>
+            <li>MIT license</li>
+          </ul>
+          <div class="tfm-actions">
+            <a href="https://threatfeedme.app">Visit threatfeedme.app ↗</a>
+            <a href="https://www.youtube.com/shorts/3OTshwFhixw">Watch the 5-minute setup ↗</a>
+            <a href="https://github.com/alexlinos/threat-feed-me">GitHub ↗</a>
+          </div>
+        </div>
+        <div class="flow-frame" aria-label="Threat Feed Me pipeline">
+          <div class="flow-title">Pipeline flow</div>
+          <ol class="flow-steps">
+            <li class="flow-node">
+              <span class="flow-step-v">22 free feeds</span>
+              <span class="flow-step-d">Keyless public threat feeds</span>
+            </li>
+            <li class="flow-arrow" aria-hidden="true">
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><line x1="10" y1="2" x2="10" y2="16"/><polyline points="5,11 10,16 15,11"/></svg>
+            </li>
+            <li class="flow-node highlight">
+              <span class="flow-step-v">Dedupe + score</span>
+              <span class="flow-step-d">Copies count once</span>
+            </li>
+            <li class="flow-arrow" aria-hidden="true">
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><line x1="10" y1="2" x2="10" y2="16"/><polyline points="5,11 10,16 15,11"/></svg>
+            </li>
+            <li class="flow-node highlight">
+              <span class="flow-step-v">High / Medium / Everything</span>
+              <span class="flow-step-d">Ranked by feed agreement</span>
+            </li>
+            <li class="flow-arrow" aria-hidden="true">
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><line x1="10" y1="2" x2="10" y2="16"/><polyline points="5,11 10,16 15,11"/></svg>
+            </li>
+            <li class="flow-node">
+              <span class="flow-step-v">Your firewall</span>
+              <span class="flow-step-d">EDLs, DNS lists &amp; TAXII 2.1</span>
+            </li>
+          </ol>
+        </div>
       </div>
     </section>
 
-    <section class="cards" aria-label="On the channel">
-      <div class="card">
-        <span class="tag">Shorts series</span>
-        <h2>5-Min Wins</h2>
-        <p>One fix, five minutes. Quick hardening wins for Microsoft 365 and Entra.</p>
-        <ul class="links">
-          <li><a href="https://www.youtube.com/shorts/4a4WQ7kjAkM">#01 Kill user consent phishing in Entra</a></li>
-          <li><a href="https://www.youtube.com/shorts/wv__Il7iQJ4">#02 Kill M365 Direct Send</a></li>
-        </ul>
-      </div>
-      <div class="card">
-        <span class="tag">Explainers</span>
-        <h2>Hardening &amp; threats</h2>
-        <p>Walkthroughs sized for small teams and tight budgets.</p>
-        <ul class="links">
-          <li><a href="https://www.youtube.com/watch?v=NmYPc5EX3lc">Active Directory hardening for small teams and towns</a></li>
-          <li><a href="https://www.youtube.com/watch?v=TBTTwlj4u9w">ClickFix: the fake CAPTCHA that runs malware</a></li>
-          <li><a href="https://www.youtube.com/shorts/yIVCVZGnJk4">Audit your M365 tenant free with CISA ScubaGear</a></li>
-        </ul>
-      </div>
-      <div class="card">
-        <span class="tag">Open source</span>
-        <h2>Threat Feed Me</h2>
-        <p>Free, open-source firewall threat feeds. MineMeld is gone; this fills the gap.</p>
-        <ul class="links">
-          <li><a href="https://threatfeedme.app">threatfeedme.app</a></li>
-          <li><a href="https://www.youtube.com/shorts/3OTshwFhixw">Set it up in 5 minutes</a></li>
-        </ul>
-      </div>
-    </section>
+    <div class="frame">
+      <section class="band" id="open-source" aria-labelledby="oss-heading">
+        <div class="band-grid">
+          <div class="band-head">
+            <h2 id="oss-heading">More Open Source</h2>
+            <p>Tools, upstream fixes and personal lab infrastructure.</p>
+          </div>
+          <ul class="oss-list">
+            <li class="oss-item">
+              <span class="oss-name">ADitor</span>
+              <p class="oss-desc">Read-only Active Directory and Group Policy hardening auditor. Checks GPO against a versioned control catalog, writes a shareable report, and diffs month to month. MIT license.</p>
+              <a class="oss-link" href="https://github.com/alexlinos/ADitor">GitHub ↗</a>
+            </li>
+            <li class="oss-item">
+              <span class="oss-name">Talon</span>
+              <p class="oss-desc">Two fixes merged upstream into the open-source AI SOC analyst (PRs #7 and #9), plus a threat-hunting fork.</p>
+              <a class="oss-link" href="https://github.com/alexlinos/talon">GitHub ↗</a>
+            </li>
+            <li class="oss-item">
+              <span class="oss-name">Honeypot</span>
+              <p class="oss-desc">A $6/month personal honeypot (Cowrie, Dionaea and a fake SSL-VPN login) reporting to HoneyDB, which feeds back into Threat Feed Me.</p>
+              <span class="oss-tag">Personal lab</span>
+            </li>
+          </ul>
+        </div>
+      </section>
 
-    <p class="soon"><span class="tag">Coming soon</span> A free IR field kit: playbooks, action logs and IRP templates. <a href="https://github.com/alexlinos">Follow on GitHub →</a></p>
+      <section class="band" id="videos" aria-labelledby="videos-heading">
+        <div class="band-grid">
+          <div class="band-head">
+            <h2 id="videos-heading">Videos</h2>
+            <p>Walkthroughs on Active Directory hardening, ClickFix lures and free tenant audits.</p>
+          </div>
+          <ol class="media-list">
+            <li>
+              <a class="media-row" href="https://www.youtube.com/watch?v=NmYPc5EX3lc">
+                <span class="media-title">Active Directory Hardening for Small Teams and Towns (TLP:CLEAR)</span>
+                <span class="media-meta">6:06 ↗</span>
+              </a>
+            </li>
+            <li>
+              <a class="media-row" href="https://www.youtube.com/watch?v=TBTTwlj4u9w">
+                <span class="media-title">ClickFix Explained: The Fake CAPTCHA That Tricks Users Into Running Malware</span>
+                <span class="media-meta">1:20 ↗</span>
+              </a>
+            </li>
+            <li>
+              <a class="media-row" href="https://www.youtube.com/shorts/yIVCVZGnJk4">
+                <span class="media-title">Audit Your M365 Tenant for Free in 45 Seconds (CISA ScubaGear)</span>
+                <span class="media-meta">0:45 ↗</span>
+              </a>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="band" id="kit" aria-labelledby="kit-heading">
+        <div class="band-grid">
+          <div class="band-head">
+            <h2 id="kit-heading">IR Field Kit</h2>
+            <p>Incident-response documentation, coming soon.</p>
+          </div>
+          <div class="kit-row">
+            <div>
+              <h3>Playbooks, action logs and IRP templates</h3>
+              <p>A free incident-response field kit currently in review. Shipping on GitHub once review is complete.</p>
+            </div>
+            <a class="kit-status" href="https://github.com/alexlinos">In review · GitHub ↗</a>
+          </div>
+        </div>
+      </section>
+
+      <footer class="colophon">
+        <div class="colophon-grid" aria-label="Profiles">
+          <a class="colophon-link" href="https://www.youtube.com/@alex-linos">
+            <span class="k">Channel</span>
+            <span class="v">YouTube</span>
+            <span class="h">@alex-linos ↗</span>
+          </a>
+          <a class="colophon-link" href="https://www.linkedin.com/in/alexlinos">
+            <span class="k">Network</span>
+            <span class="v">LinkedIn</span>
+            <span class="h">/in/alexlinos ↗</span>
+          </a>
+          <a class="colophon-link" href="https://github.com/alexlinos">
+            <span class="k">Repositories</span>
+            <span class="v">GitHub</span>
+            <span class="h">github.com/alexlinos ↗</span>
+          </a>
+        </div>
+        <div class="foot-meta">
+          <span>Alex Linos · TLP:CLEAR</span>
+          <span>Static HTML · Zero third-party requests</span>
+        </div>
+      </footer>
+    </div>
   </main>
 
-  <footer>
-    <div class="wrap">
-      <span>© 2026 Alex Linos</span>
-      <nav aria-label="Profiles">
-        <a href="https://www.youtube.com/@alex-linos">YouTube</a>
-        <a href="https://www.linkedin.com/in/alexlinos">LinkedIn</a>
-        <a href="https://github.com/alexlinos">GitHub</a>
-      </nav>
-    </div>
-  </footer>
+  <script>
+    (function () {
+      var btn = document.getElementById('themeToggle');
+      var root = document.documentElement;
+      function sync() {
+        var dark = root.dataset.theme === 'dark' ||
+          (!root.dataset.theme && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        btn.textContent = dark ? 'Light' : 'Dark';
+      }
+      var params = new URLSearchParams(location.search);
+      if (params.get('theme') === 'dark' || params.get('theme') === 'light') {
+        root.dataset.theme = params.get('theme');
+      }
+      sync();
+      btn.addEventListener('click', function () {
+        var dark = root.dataset.theme === 'dark' ||
+          (!root.dataset.theme && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        root.dataset.theme = dark ? 'light' : 'dark';
+        sync();
+      });
+    })();
+  </script>
 </body>
 </html>
