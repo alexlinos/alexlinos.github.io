@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Alex Linos</title>
+  <meta name="description" content="Practical cybersecurity, local and cloud AI, open-source tools, and the hardware that runs them, built for real-world budgets.">
+  <style>
+    :root {
+      --bg: #fbfaf7;
+      --surface: #ffffff;
+      --text: #16181d;
+      --muted: #5b6070;
+      --line: #e4e2dc;
+      --accent: #b45309;
+      --accent-ink: #ffffff;
+      --mono: ui-monospace, "SF Mono", "Cascadia Code", Consolas, monospace;
+      --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f1115;
+        --surface: #161920;
+        --text: #e8e9ec;
+        --muted: #9aa0ad;
+        --line: #262a33;
+        --accent: #f59e0b;
+        --accent-ink: #16181d;
+      }
+    }
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 17px/1.6 var(--sans);
+    }
+    a { color: inherit; }
+    .wrap { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+
+    header .wrap {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 72px;
+    }
+    .mark { font-family: var(--mono); font-weight: 700; text-decoration: none; letter-spacing: .02em; }
+    .mark span { color: var(--accent); }
+    nav { display: flex; gap: 20px; font-size: 15px; }
+    nav a { color: var(--muted); text-decoration: none; }
+    nav a:hover { color: var(--text); }
+
+    .hero { padding: 88px 0 72px; }
+    .eyebrow {
+      font-family: var(--mono); font-size: 13px; color: var(--accent);
+      text-transform: uppercase; letter-spacing: .08em; margin: 0 0 18px;
+    }
+    h1 { font-size: clamp(36px, 7vw, 56px); line-height: 1.08; margin: 0 0 20px; letter-spacing: -.02em; }
+    .lede { font-size: 19px; color: var(--muted); max-width: 40em; margin: 0 0 32px; }
+    .cta { display: flex; flex-wrap: wrap; gap: 12px; }
+    .btn {
+      display: inline-block; padding: 12px 20px; border-radius: 8px;
+      text-decoration: none; font-weight: 600; font-size: 15px;
+      border: 1px solid var(--line);
+    }
+    .btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+    .btn:hover { filter: brightness(1.08); }
+
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; padding-bottom: 40px; }
+    .card { display: flex; flex-direction: column; }
+    .links { list-style: none; margin: auto 0 0; padding: 0; display: grid; gap: 10px; }
+    .links a { font-size: 14px; line-height: 1.4; display: block; }
+    .links a::after { content: " →"; }
+    .soon { color: var(--muted); font-size: 15px; padding-bottom: 88px; margin: 0; }
+    .soon .tag { margin: 0 8px 0 0; }
+    .soon a { color: var(--accent); font-weight: 600; text-decoration: none; }
+    @media (max-width: 860px) { .cards { grid-template-columns: 1fr; } }
+    .card {
+      background: var(--surface); border: 1px solid var(--line); border-radius: 12px;
+      padding: 24px;
+    }
+    .card h2 { font-size: 18px; margin: 0 0 8px; }
+    .card p { color: var(--muted); margin: 0 0 16px; font-size: 15px; }
+    .card a { font-size: 15px; font-weight: 600; color: var(--accent); text-decoration: none; }
+    .tag {
+      display: inline-block; font-family: var(--mono); font-size: 12px;
+      color: var(--muted); border: 1px solid var(--line); border-radius: 999px;
+      padding: 2px 10px; margin-bottom: 12px; align-self: flex-start;
+    }
+
+    footer { border-top: 1px solid var(--line); }
+    footer .wrap {
+      display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between;
+      padding-top: 24px; padding-bottom: 32px; font-size: 14px; color: var(--muted);
+    }
+    footer nav { gap: 16px; font-size: 14px; }
+
+    @media (max-width: 640px) {
+      .hero { padding: 48px 0 48px; }
+      .soon { padding-bottom: 56px; }
+      header nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <a class="mark" href="/">alex<span>.</span>linos</a>
+      <nav aria-label="Profiles">
+        <a href="https://www.youtube.com/@alex-linos">YouTube</a>
+        <a href="https://www.linkedin.com/in/alexlinos">LinkedIn</a>
+        <a href="https://github.com/alexlinos">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <p class="eyebrow">Cybersecurity · AI · Open source</p>
+      <h1>Alex Linos</h1>
+      <p class="lede">Practical cybersecurity, local &amp; cloud AI, open-source tools, and the hardware that runs them, built for real-world budgets.</p>
+      <div class="cta">
+        <a class="btn primary" href="https://www.youtube.com/@alex-linos">Watch on YouTube</a>
+        <a class="btn" href="https://www.linkedin.com/in/alexlinos">Connect on LinkedIn</a>
+      </div>
+    </section>
+
+    <section class="cards" aria-label="On the channel">
+      <div class="card">
+        <span class="tag">Shorts series</span>
+        <h2>5-Min Wins</h2>
+        <p>One fix, five minutes. Quick hardening wins for Microsoft 365 and Entra.</p>
+        <ul class="links">
+          <li><a href="https://www.youtube.com/shorts/4a4WQ7kjAkM">#01 Kill user consent phishing in Entra</a></li>
+          <li><a href="https://www.youtube.com/shorts/wv__Il7iQJ4">#02 Kill M365 Direct Send</a></li>
+        </ul>
+      </div>
+      <div class="card">
+        <span class="tag">Explainers</span>
+        <h2>Hardening &amp; threats</h2>
+        <p>Walkthroughs sized for small teams and tight budgets.</p>
+        <ul class="links">
+          <li><a href="https://www.youtube.com/watch?v=NmYPc5EX3lc">Active Directory hardening for small teams and towns</a></li>
+          <li><a href="https://www.youtube.com/watch?v=TBTTwlj4u9w">ClickFix: the fake CAPTCHA that runs malware</a></li>
+          <li><a href="https://www.youtube.com/shorts/yIVCVZGnJk4">Audit your M365 tenant free with CISA ScubaGear</a></li>
+        </ul>
+      </div>
+      <div class="card">
+        <span class="tag">Open source</span>
+        <h2>Threat Feed Me</h2>
+        <p>Free, open-source firewall threat feeds. MineMeld is gone; this fills the gap.</p>
+        <ul class="links">
+          <li><a href="https://threatfeedme.app">threatfeedme.app</a></li>
+          <li><a href="https://www.youtube.com/shorts/3OTshwFhixw">Set it up in 5 minutes</a></li>
+        </ul>
+      </div>
+    </section>
+
+    <p class="soon"><span class="tag">Coming soon</span> A free IR field kit: playbooks, action logs and IRP templates. <a href="https://github.com/alexlinos">Follow on GitHub →</a></p>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>© 2026 Alex Linos</span>
+      <nav aria-label="Profiles">
+        <a href="https://www.youtube.com/@alex-linos">YouTube</a>
+        <a href="https://www.linkedin.com/in/alexlinos">LinkedIn</a>
+        <a href="https://github.com/alexlinos">GitHub</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>
